@@ -1,0 +1,24 @@
+service: agbar-dialogflow
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: eu-west-1
+
+# you can define service wide environment variables here
+#  environment:
+#    variable1: value1
+
+package:
+  include:
+    - gcloud.js
+
+functions:
+  fulfillment:
+    handler: handler.dialogflow
+    events:
+      - http:
+          method: POST
+          path: dialogflow
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: './gcloud.json'
